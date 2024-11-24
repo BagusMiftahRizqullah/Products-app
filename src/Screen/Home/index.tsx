@@ -8,7 +8,7 @@ const height = Dimensions.get('window').height;
 const BannerPromo = React.lazy(() => import('../../Component/Slider/Slider'));
 const ProductComponent = React.lazy(() => import('../../Component/Product/Product'));
 const ProductPromo = React.lazy(() => import('../../Component/Promos/Promos'));
-const Home: React.FC = () => {
+const Home: React.FC = (props) => {
   const [scrollY, setScrollY] = useState(0);
 
   const handleScroll = (event: any) => {
@@ -37,6 +37,11 @@ const Home: React.FC = () => {
     scrollViewRef.current?.scrollTo({ y: 0, animated: true });
   };
 
+  const goToProductScreen = () => {
+    // Scroll to top of the ScrollView
+      console.log("goToProductScreen",props.navigation.navigate('ProductsScreen'))
+      // props.navigation.navigate('Products')
+  };
 
   return (
     <SafeAreaView style={{
@@ -51,7 +56,7 @@ const Home: React.FC = () => {
       }}>
       {/* Header */}
       <View style={styles.containerHeader}>
-          <TouchableOpacity style={styles.searchContainer}>
+          <TouchableOpacity onPress={goToProductScreen} style={styles.searchContainer}>
               <Icon name={'search-outline'} size={24} color={'#8e8e93'} />;
               <Text style={{marginLeft: 8}}>Search Product</Text>
           </TouchableOpacity>
