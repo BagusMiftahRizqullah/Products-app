@@ -11,18 +11,22 @@ const height = Dimensions.get('window').height;
     data: any[]; // Array of DataItem objects
   }
 
-const Product: React.FC<ProductProps> = ({ data }) => {
-console.log("dataPRODUCTCOMPONEN", data)
+const Product: React.FC<ProductProps> = (props) => {
 
 const goToProductScreen = () => {
   // Scroll to top of the ScrollView
     props.navigation.navigate('ProductsScreen')
 };
 
+const goToDetailProductScreen = (data: any) => {
+  // Scroll to top of the ScrollView
+    props.navigation.navigate('DetailProductScreen', data)
+};
+
 
   const componentProduct = (item: any) => (
    
-    <TouchableOpacity style={styles.containerProduct}>
+    <TouchableOpacity onPress={() => goToDetailProductScreen(item)} style={styles.containerProduct}>
        <View style={{
         zIndex:1000,
         position:'absolute',
@@ -37,7 +41,7 @@ const goToProductScreen = () => {
           <Text style={styles.textStatus}>{`${item.availabilityStatus}`}</Text>
         </View>
     <Image 
-    source={{ uri: item.images[0] }}
+    source={{ uri: item.thumbnail }}
     style={{width: width / 3.5, height:height / 8, alignSelf:'center'}} 
     resizeMode="cover"
     />
@@ -74,7 +78,7 @@ const goToProductScreen = () => {
       style={{
         marginBottom: 12,
       }}
-        data={data}
+        data={props.data}
         renderItem={({ item }) => componentProduct(item)} 
         keyExtractor={(item) => item.id.toString()}
         numColumns={3} // Sets 3 products per row

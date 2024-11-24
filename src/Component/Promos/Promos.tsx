@@ -11,7 +11,7 @@ const height = Dimensions.get('window').height;
     data: any[]; // Array of DataItem objects
   }
 
-const Promos: React.FC<PromosProps> = ({ data }) => {
+const Promos: React.FC<PromosProps> = (props) => {
 
   const goToProductScreen = () => {
     // Scroll to top of the ScrollView
@@ -34,7 +34,7 @@ const Promos: React.FC<PromosProps> = ({ data }) => {
           <Text style={styles.textStatus}>{`${item.availabilityStatus}`}</Text>
         </View>
     <Image 
-    source={{ uri: item.images[0] }}
+    source={{ uri: item.thumbnail }}
     style={{
       width: width / 3.5, 
       height:height / 8, 
@@ -72,7 +72,7 @@ const Promos: React.FC<PromosProps> = ({ data }) => {
           style={{
             marginBottom: 12,
           }}
-            data={data}
+            data={props.data}
             renderItem={({ item }) => componentProduct(item)} 
             keyExtractor={(item) => item.id.toString()}
             horizontal // Enable horizontal scrollin

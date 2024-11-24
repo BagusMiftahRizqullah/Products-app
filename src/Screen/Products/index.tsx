@@ -2,19 +2,19 @@ import { FlatList, Image, SafeAreaView, StyleSheet, Text, TextInput, TouchableOp
 import React,{useState, useEffect} from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProduct } from '../../Services/ProductService';
+import { getAllProduct, getOneProduct } from '../../Services/ProductService';
 import { saveProduct } from '../../Reducer/products';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
-const Products: React.FC = () => {
+const Products: React.FC = (props) => {
   const dispatch = useDispatch();
   const products = useSelector((state: any) => state.productReducer.products); // Accessing the products from the state
 
 
-  // useEffect(() => {
-  //   getAllProducts();
-  // }, [])
+//   useEffect(() => {
+//     getAllProducts();
+//   }, [])
 
 //  async function getAllProducts(){
 //     const data =  await getAllProduct();
@@ -22,12 +22,23 @@ const Products: React.FC = () => {
 //     dispatch(saveProduct(data)); 
 //   }
 
+  async function getOneProducts(id_product:number){
+    const data =  await getOneProduct(id_product);
+    console.log("data DEtail",data )
+    goToDetailProductScreen(data)
+  }
+
+const goToDetailProductScreen = (data_detail:any) => {
+  // Scroll to top of the ScrollView
+    props.navigation.navigate('DetailProductScreen',data_detail)
+};
+
 
   console.log("products123", products)
 
   const componentProduct = (item: any) => (
    
-      <TouchableOpacity style={styles.containerProduct}>
+      <TouchableOpacity onPress={() => getOneProducts(item.id)} style={styles.containerProduct}>
          <View style={{
           zIndex:1000,
           position:'absolute',
@@ -42,7 +53,7 @@ const Products: React.FC = () => {
             <Text style={styles.textStatus}>{`${item.availabilityStatus}`}</Text>
           </View>
       <Image 
-      source={{ uri: item.images[0] }}
+      source={{ uri: item.thumbnail }}
       style={{width: width / 3.5, height:height / 8, alignSelf:'center'}} 
       resizeMode="cover"
       />

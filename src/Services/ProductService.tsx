@@ -10,3 +10,13 @@ export const getAllProduct = async (): Promise<any> => {
       throw error; // Optionally, throw the error to be handled by the caller
     }
   };
+
+  export const getOneProduct = async (id:number): Promise<any> => {
+    try {
+      const response = await axios.get(`${BASE_URL}/products/${id}`);
+      return response.data; // Return the data from the response
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      throw error; // Optionally, throw the error to be handled by the caller
+    }
+  };
