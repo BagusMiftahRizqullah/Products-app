@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Dimensions, FlatList, ScrollView } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Dimensions, StatusBar, ScrollView } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useSelector } from 'react-redux';
+import { saveProduct } from '../../Reducer/products';
+import { getAllProduct } from '../../Services/ProductService';
 
 const scrollViewRef = useRef<ScrollView>(null);
 const width = Dimensions.get('window').width;
@@ -10,6 +13,13 @@ const ProductComponent = React.lazy(() => import('../../Component/Product/Produc
 const ProductPromo = React.lazy(() => import('../../Component/Promos/Promos'));
 const Home: React.FC = (props) => {
   const [scrollY, setScrollY] = useState(0);
+  const products = useSelector((state: any) => state.productReducer.products); // Accessing the products from the state
+
+  useEffect(() => {
+    StatusBar.setHidden(false);
+  }, [])
+  
+console.log("HomeDATAPRODUCT",products)
 
   const handleScroll = (event: any) => {
     const contentOffsetY = event.nativeEvent.contentOffset.y;
@@ -23,14 +33,6 @@ const Home: React.FC = (props) => {
     { id: 5, title: 'Promos 5' },
   ];
 
-  const dataProduct = [
-    { id: 1, title: 'Product 1' },
-    { id: 2, title: 'Product 2' },
-    { id: 3, title: 'Product 3' },
-    { id: 4, title: 'Product 4' },
-    { id: 5, title: 'Product 5' },
-    { id: 6, title: 'Product 6' },
-  ];
 
   const scrollToTop = () => {
     // Scroll to top of the ScrollView
@@ -39,9 +41,15 @@ const Home: React.FC = (props) => {
 
   const goToProductScreen = () => {
     // Scroll to top of the ScrollView
-      console.log("goToProductScreen",props.navigation.navigate('ProductsScreen'))
-      // props.navigation.navigate('Products')
+      props.navigation.navigate('ProductsScreen')
   };
+
+  const getRandomItems = (arr, count) => {
+    const shuffled = arr?.sort(() => 0.5 - Math.random()); // Acak array
+    console.log("shuffled",shuffled)
+    return shuffled.slice(0, count); // Ambil item sebanyak 'count'
+  };
+
 
   return (
     <SafeAreaView style={{
@@ -82,14 +90,14 @@ const Home: React.FC = (props) => {
       </View>
 
         {/* Promos Product */}
-        <ProductPromo data={data} />
+        <ProductPromo data={products?.products?.slice(0, 10) || []} />
 
         {/* List Product */}
-        <ProductComponent data={dataProduct} />
+        <ProductComponent data={products?.products?.slice(0, 6) || []} />
 
 
       {/* Gap */}
-      <View style={{height: 100}}/>
+      {/* <View style={{height: 100}}/> */}
       </ScrollView>
       {
         scrollY > 250 ? (
@@ -143,7 +151,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     marginBottom: 12
   },
- 
+
   textSmall: {
     color: '#fff',
     fontSize: 16,

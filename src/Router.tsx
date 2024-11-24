@@ -17,16 +17,16 @@ import {
 
 const Router: React.FC = () => {
     return (
-    <NavigationContainer>
+    <NavigationContainer initialState={{ index: 0, routes: [{ name: 'SplashScreen' }] }}>
             <Stack.Navigator>
+              <Stack.Screen options={{
+                      headerShown: false,
+  
+                  }} name="SplashScreen" component={SplashScreen} />
                 <Stack.Screen options={{
                             headerShown: false,
     
                         }} name="bottomTabs" component={bottomTabs} />
-            <Stack.Screen options={{
-                    headerShown: false,
-
-                }} name="SplashScreen" component={SplashScreen} />
 
 
             </Stack.Navigator>
