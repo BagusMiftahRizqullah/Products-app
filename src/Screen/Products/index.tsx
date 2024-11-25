@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllProduct, getOneProduct ,searchProduct} from '../../Services/ProductService';
 import { saveProduct } from '../../Reducer/products';
 import { useNavigation } from '@react-navigation/native';
-import { debounce } from 'lodash';
+// import debounce from 'lodash/debounce';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -100,7 +100,7 @@ const goToDetailProductScreen = (data_detail:any) => {
      <View style={styles.containerHeader}>
           <View style={styles.searchContainer}>
               <Icon name={'search-outline'} size={24} color={'#8e8e93'} />;
-              <TextInput onChangeText={(text) =>{ debounce(searchProducts(text), 1000)}} placeholder='Search Product' style={{
+              <TextInput onChangeText={(text) =>{ searchProducts(text)}} placeholder='Search Product' style={{
               }}/>
           </View>
           <View style={styles.iconHeadContainer}>
