@@ -221,6 +221,7 @@ const DetailProduct: React.FC<DetailProductProps> = (props) => {
               {
                   props.route.params.reviews.map((item: any) => (
                     <View key={item.id} style={{
+                      width: width - 24,
                       marginVertical: 8,
                       backgroundColor: '#fff',
                       padding: 12,
@@ -235,7 +236,7 @@ const DetailProduct: React.FC<DetailProductProps> = (props) => {
                         <Text style={{
               
                         fontWeight: 'bold',
-                        fontSize: 18
+                        fontSize: width / 25
                       }}>{item.reviewerName}</Text>
                         {/* Rating */}
                         <View style={{
@@ -244,26 +245,23 @@ const DetailProduct: React.FC<DetailProductProps> = (props) => {
                           alignItems:'center',
                           marginLeft: 10
                         }}>
-                      <Icon name={'star'} size={21} color={'#ffcc00'} />
+                      <Icon name={'star'} size={width / 25} color={'#ffcc00'} />
                       <Text style={{
                         alignItems:'center',
-      
-                        fontSize: 16
+                        fontSize: width / 25
                       }}>{item.rating}</Text>
                         </View>
                         </View>
                       <Text style={{
-                        
                         fontWeight: 'bold',
-                        fontSize: 16
+                        fontSize: width / 25
                       }}>{item.reviewerEmail}</Text>
                       </View>
-                      <View>
-                      <Text style={{
-                        fontWeight: 'bold',
-                        fontSize: 16
-                      }}>{moment(item.date).format('DD-MM-YYYY')}</Text>
-                  
+                      <View style={{alignItems:'flex-end'}}>
+                        <Text style={{
+                          fontWeight: 'bold',
+                          fontSize: width / 35
+                        }}>{moment(item.date).format('DD-MM-YYYY')}</Text>
                       </View>
                     
                       </View>
@@ -271,7 +269,7 @@ const DetailProduct: React.FC<DetailProductProps> = (props) => {
                     
                       <Text style={{
                         marginTop: 12,
-                        fontSize: 16
+                        fontSize: width / 28
                       }}>{item.comment}</Text>
                     </View>
                   ))

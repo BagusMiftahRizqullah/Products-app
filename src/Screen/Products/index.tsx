@@ -100,7 +100,7 @@ const goToDetailProductScreen = (data_detail:any) => {
      <View style={styles.containerHeader}>
           <View style={styles.searchContainer}>
               <Icon name={'search-outline'} size={24} color={'#8e8e93'} />;
-              <TextInput onChangeText={(text) => debounce(searchProducts(text), 500)} placeholder='Search Product' style={{
+              <TextInput onChangeText={(text) =>{ debounce(searchProducts(text), 1000)}} placeholder='Search Product' style={{
               }}/>
           </View>
           <View style={styles.iconHeadContainer}>
@@ -174,13 +174,13 @@ const styles = StyleSheet.create({
 
     },
     containerProduct:{
-      width: 190,
+      width: width / 2.3,
      
       padding:8,
       backgroundColor:'#fff',
       flexDirection:'column',
       justifyContent:'center',
-      margin:2,
+      margin:7,
       borderRadius:10
       
     },

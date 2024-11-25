@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux';
 
 const Cart: React.FC = (props) => {
   const cart = useSelector((state: any) => state.cartReducer.cart); // Accessing the products from the state
+  const width = Dimensions.get('window').width;
+  const height = Dimensions.get('window').height;
 
   useEffect(() => {
     getMyCart();
@@ -22,7 +24,7 @@ const Cart: React.FC = (props) => {
     <View style={{
            
     }}>
-        <View style={{
+        <TouchableOpacity style={{
             flexDirection:'row',
             justifyContent:'flex-start',
             alignItems:'center',
@@ -32,12 +34,16 @@ const Cart: React.FC = (props) => {
         }}>
              <Image 
              source={{ uri: item.thumbnail }}
-             style={{width:150,height:150}} 
+             style={{
+              width:width/3,
+              height:height/8,
+              resizeMode:'contain'}} 
              />
              <View style={{
                 marginLeft:10,
                 justifyContent:'space-between',
-                height:90
+                height: height / 10,
+                width: width / 2
              }}>
                  <Text  style={{
                         fontWeight:'bold',
@@ -51,17 +57,17 @@ const Cart: React.FC = (props) => {
                  }}>
                     <Text style={{
                         fontWeight:'bold',
-                        fontSize:20,
+                        fontSize: width / 25,
                         color:'#7534E0'
                     }}>$ {item.price}</Text>
                     <Text style={{
                         fontWeight:'bold',
-                        fontSize:15,
+                        fontSize: width / 25
                         // color:'#7534E0'
                     }} >Qty 1</Text>
                  </View>
              </View>
-        </View>
+        </TouchableOpacity>
         
     </View>
   );
