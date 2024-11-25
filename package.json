@@ -7,7 +7,12 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "bundle-android": "(react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/)",
+    "release-android": "(cd android && ./gradlew assembleRelease && cd .. && say -v good 'Android rilis') || (cd .. && say -v Bad 'Android Release Failed')",
+    "releaseb-android": "cd android && ./gradlew bundleRelease && cd .. && say -v good 'Android rilis'",
+    "build-android": "cd android && ./gradlew assembleDebug",
+    "bundle-ios": "(react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios && say -v trinoids 'IOS Bundle Done') || say -v Bad 'Bundle IOS Bad'"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^7.0.7",
@@ -16,6 +21,7 @@
     "@reduxjs/toolkit": "^2.3.0",
     "axios": "^1.7.7",
     "lodash": "^4.17.21",
+    "lottie-react-native": "^7.1.0",
     "moment": "^2.30.1",
     "react": "18.3.1",
     "react-native": "0.76.3",

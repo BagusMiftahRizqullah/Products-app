@@ -9,7 +9,8 @@ import {
     Home,
     Products,
     SplashScreen,
-    DetailProduct
+    DetailProduct,
+    Cart
   } from './Screen';
 
   const Stack = createStackNavigator();
@@ -29,12 +30,15 @@ const Router: React.FC = () => {
     
                         }} name="bottomTabs" component={bottomTabs} />
 
-    <Stack.Screen options={{
-                            headerShown: false,
-    
-                        }} name="DetailProductScreen" component={DetailProduct} />
+                <Stack.Screen options={{
+                                        headerShown: false,
+                
+                                    }} name="DetailProductScreen" component={DetailProduct} />
 
-
+                <Stack.Screen options={{
+                                            headerShown: false,
+                    
+                                        }} name="CartScreen" component={Cart} />
             </Stack.Navigator>
     </NavigationContainer>
     );

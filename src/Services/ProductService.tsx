@@ -11,6 +11,16 @@ export const getAllProduct = async (): Promise<any> => {
     }
   };
 
+  export const searchProduct = async (text:string): Promise<any> => {
+    try {
+      const response = await axios.get(`${BASE_URL}/products/search?q=${text}`);
+      return response.data; // Return the data from the response
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      throw error; // Optionally, throw the error to be handled by the caller
+    }
+  };
+
   export const getOneProduct = async (id:number): Promise<any> => {
     try {
       const response = await axios.get(`${BASE_URL}/products/${id}`);
@@ -38,5 +48,35 @@ export const getAllProduct = async (): Promise<any> => {
     } catch (error: any) {
       console.error('Error adding to cart:', error?.response?.data || error.message); // Log lebih informatif
       throw new Error(error?.response?.data?.message || 'Failed to add to cart'); // Lempar error dengan pesan yang jelas
+    }
+  };
+
+  export const getOneCart = async (id:number): Promise<any> => {
+    try {
+      const response = await axios.get(`${BASE_URL}/carts/${id}`);
+      return response.data; // Return the data from the response
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      throw error; // Optionally, throw the error to be handled by the caller
+    }
+  };
+
+  export const getMyCarts = async (id:number): Promise<any> => {
+    try {
+      const response = await axios.get(`${BASE_URL}/carts/user/${id}`);
+      return response.data; // Return the data from the response
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      throw error; // Optionally, throw the error to be handled by the caller
+    }
+  };
+
+  export const getAllCarts = async (): Promise<any> => {
+    try {
+      const response = await axios.get(`${BASE_URL}/carts`);
+      return response.data; // Return the data from the response
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      throw error; // Optionally, throw the error to be handled by the caller
     }
   };

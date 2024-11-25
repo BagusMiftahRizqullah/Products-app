@@ -10,6 +10,12 @@ const height = Dimensions.get('window').height;
 const DetailProduct: React.FC<DetailProductProps> = (props) => {
     const position = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
     const scale = useRef(new Animated.Value(1)).current;
+
+
+    const goToCartScreen = () => {
+      // Scroll to top of the ScrollView
+        props.navigation.navigate('CartScreen')
+    };
   
     const handleAddToCart = async() => {
       // Reset position and scale before animating
@@ -29,20 +35,7 @@ const DetailProduct: React.FC<DetailProductProps> = (props) => {
             duration: 1000,
             useNativeDriver: true,
           }),
-        ]),
-        Animated.delay(300), // Memberi jeda sebelum reset
-        Animated.parallel([
-          Animated.timing(position, {
-            toValue: { x: 0, y: 0 }, // Balik ke posisi awal
-            duration: 800,
-            useNativeDriver: true,
-          }),
-          Animated.timing(scale, {
-            toValue: 1, // Skala kembali normal
-            duration: 800,
-            useNativeDriver: true,
-          }),
-        ]),
+        ]),       
       ]).start();
 
       console.log("selectedPRODUCT",props.route.params.id)
@@ -80,7 +73,7 @@ const DetailProduct: React.FC<DetailProductProps> = (props) => {
                   {/* jika tidak */}
                   <Icon name={'heart-outline'} size={32} color={'#7534E0'} />;
                 </TouchableOpacity>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={goToCartScreen}>
                     <Icon name={'cart-outline'} size={32} color={'#7534E0'} />;
                 </TouchableOpacity>
               </View>

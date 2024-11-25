@@ -2,9 +2,10 @@ import { FlatList, Image, SafeAreaView, StyleSheet, Text, TextInput, TouchableOp
 import React,{useState, useEffect} from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProduct, getOneProduct } from '../../Services/ProductService';
+import { getAllProduct, getOneProduct ,searchProduct} from '../../Services/ProductService';
 import { saveProduct } from '../../Reducer/products';
 import { useNavigation } from '@react-navigation/native';
+import { debounce } from 'lodash';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -23,11 +24,21 @@ const Products: React.FC = (props) => {
 //     console.log("dataPRODUCTS",data )
 //     dispatch(saveProduct(data)); 
 //   }
-
+const goToCartScreen = () => {
+  // Scroll to top of the ScrollView
+    props.navigation.navigate('CartScreen')
+};
   async function getOneProducts(id_product:number){
     const data =  await getOneProduct(id_product);
     console.log("data DEtail",data )
     goToDetailProductScreen(data)
+  }
+
+
+  async function searchProducts(text:string){
+    const data =  await searchProduct(text);
+    console.log("data Search",data )
+    dispatch(saveProduct(data)); 
   }
 
 const goToDetailProductScreen = (data_detail:any) => {
@@ -89,14 +100,14 @@ const goToDetailProductScreen = (data_detail:any) => {
      <View style={styles.containerHeader}>
           <View style={styles.searchContainer}>
               <Icon name={'search-outline'} size={24} color={'#8e8e93'} />;
-              <TextInput style={{
+              <TextInput onChangeText={(text) => debounce(searchProducts(text), 500)} placeholder='Search Product' style={{
               }}/>
           </View>
           <View style={styles.iconHeadContainer}>
              <TouchableOpacity>
               <Icon name={'filter-outline'} size={32} color={'#7534E0'} />;
              </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={goToCartScreen}>
                 <Icon name={'cart-outline'} size={32} color={'#7534E0'} />;
              </TouchableOpacity>
           </View>

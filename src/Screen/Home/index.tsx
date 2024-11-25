@@ -43,6 +43,11 @@ console.log("HomeDATAPRODUCT",products)
     // Scroll to top of the ScrollView
       props.navigation.navigate('ProductsScreen')
   };
+  const goToCartScreen = () => {
+    // Scroll to top of the ScrollView
+      props.navigation.navigate('CartScreen')
+  };
+
 
   const getRandomItems = (arr, count) => {
     const shuffled = arr?.sort(() => 0.5 - Math.random()); // Acak array
@@ -69,7 +74,7 @@ console.log("HomeDATAPRODUCT",products)
               <Text style={{marginLeft: 8}}>Search Product</Text>
           </TouchableOpacity>
           <View style={styles.iconHeadContainer}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={goToCartScreen}>
                 <Icon name={'cart-outline'} size={32} color={'#7534E0'} />;
              </TouchableOpacity>
              <TouchableOpacity>
