@@ -2,6 +2,8 @@ import React from 'react'
 import {Image, StyleSheet, Text, TouchableOpacity, View, Dimensions, FlatList, ScrollView } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
 import {ProductExample} from '../../../assets/images';
+import { useNavigation } from '@react-navigation/native';
+import { getOneProduct } from '../../Services/ProductService';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -12,14 +14,27 @@ const height = Dimensions.get('window').height;
   }
 
 const Promos: React.FC<PromosProps> = (props) => {
-
+  const navigation = useNavigation(); // Akses navigation
   const goToProductScreen = () => {
     // Scroll to top of the ScrollView
-      props.navigation.navigate('ProductsScreen')
+      navigation.navigate('ProductsScreen')
   };
+
+  async function getOneProducts(id_product:number){
+    const data =  await getOneProduct(id_product);
+    console.log("data DEtail",data )
+    goToDetailProductScreen(data)
+  }
+  
+  const goToDetailProductScreen = (data_detail:any) => {
+  // Scroll to top of the ScrollView
+    navigation.navigate('DetailProductScreen',data_detail)
+  };
+
+  
   const componentProduct = (item: any) => (
    
-    <TouchableOpacity style={styles.containerProduct}>
+    <TouchableOpacity onPress={() => getOneProducts(item.id)} style={styles.containerProduct}>
        <View style={{
         zIndex:1000,
         position:'absolute',

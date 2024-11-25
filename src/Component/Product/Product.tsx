@@ -1,6 +1,8 @@
 import React from 'react'
 import {Image, StyleSheet, Text, TouchableOpacity, View, Dimensions, FlatList, ScrollView } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
+import { getOneProduct } from '../../Services/ProductService';
+import { useNavigation } from '@react-navigation/native';
 
 
 const width = Dimensions.get('window').width;
@@ -12,21 +14,28 @@ const height = Dimensions.get('window').height;
   }
 
 const Product: React.FC<ProductProps> = (props) => {
+  const navigation = useNavigation(); // Akses navigation
 
 const goToProductScreen = () => {
   // Scroll to top of the ScrollView
-    props.navigation.navigate('ProductsScreen')
+    navigation.navigate('ProductsScreen')
 };
 
-const goToDetailProductScreen = (data: any) => {
-  // Scroll to top of the ScrollView
-    props.navigation.navigate('DetailProductScreen', data)
+async function getOneProducts(id_product:number){
+  const data =  await getOneProduct(id_product);
+  console.log("data DEtail",data )
+  goToDetailProductScreen(data)
+}
+
+const goToDetailProductScreen = (data_detail:any) => {
+// Scroll to top of the ScrollView
+  navigation.navigate('DetailProductScreen',data_detail)
 };
 
 
   const componentProduct = (item: any) => (
    
-    <TouchableOpacity onPress={() => goToDetailProductScreen(item)} style={styles.containerProduct}>
+    <TouchableOpacity onPress={() => getOneProducts(item.id)} style={styles.containerProduct}>
        <View style={{
         zIndex:1000,
         position:'absolute',

@@ -4,10 +4,12 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProduct, getOneProduct } from '../../Services/ProductService';
 import { saveProduct } from '../../Reducer/products';
+import { useNavigation } from '@react-navigation/native';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 const Products: React.FC = (props) => {
+  const navigation = useNavigation(); // Akses navigation
   const dispatch = useDispatch();
   const products = useSelector((state: any) => state.productReducer.products); // Accessing the products from the state
 
@@ -30,7 +32,7 @@ const Products: React.FC = (props) => {
 
 const goToDetailProductScreen = (data_detail:any) => {
   // Scroll to top of the ScrollView
-    props.navigation.navigate('DetailProductScreen',data_detail)
+    navigation.navigate('DetailProductScreen',data_detail)
 };
 
 
